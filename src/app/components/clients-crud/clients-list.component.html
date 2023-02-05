@@ -1,0 +1,123 @@
+<h1 class="title">Client List</h1>
+
+<div class="container-custom">
+
+    <div class="mat-elevation-z8">
+
+        <mat-form-field>
+            <mat-label>Client</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search Client" #input autocomplete="off">
+        </mat-form-field>
+
+        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+            
+            <ng-container matColumnDef="PhoneNum">
+                <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                <td mat-cell *matCellDef="let element"> {{element.PhoneNumber}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="FirstName">
+                <th mat-header-cell *matHeaderCellDef> Firs tName </th>
+                <td mat-cell *matCellDef="let element"> {{element.FirstName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="LastName">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+                <td mat-cell *matCellDef="let element"> {{element.LastName}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="Comments">
+                <th mat-header-cell *matHeaderCellDef> Comments </th>
+                <td mat-cell *matCellDef="let element"> {{element.Comments}} </td>
+            </ng-container>
+            
+            <ng-container matColumnDef="Actions">
+                <th mat-header-cell *matHeaderCellDef>
+                    <button (click)="onCreateClient(AddEditModal)" mat-stroked-button color="primary" class="addbtn">+</button>
+
+                </th>
+                <th mat-header-cell> Actions </th>
+                <td mat-cell *matCellDef="let element">
+                    <mat-icon (click)="onDeleteClient(element.Id, deleteClientModalContent)" class="delete" fontIcon="delete" matTooltip="Delete Client"></mat-icon>
+                    <mat-icon (click)="onEditClient(element.Id, AddEditModal)" class="edit" fontIcon="edit" matTooltip="Edit Client"></mat-icon>
+
+                </td>
+            </ng-container>
+            <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="home"></mat-icon>
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                    showFirstLastButtons
+                    aria-label="Select page of periodic elements">
+        </mat-paginator>
+    </div>
+  
+</div>
+  
+
+<ng-template #AddEditModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">{{ actionType }} Client</h4>
+	</div>
+	<div class="modal-body">
+		<form [formGroup]="form" (ngSubmit)="saveClient()">
+			<mat-grid-list cols="1" rowHeight="100px">
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Phone Number</mat-label>
+                        <input formControlName="PhoneNumber" matInput maxlength="12" autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>First Name</mat-label>
+                        <input formControlName="FirstName" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Last Name</mat-label>
+                        <input formControlName="LastName" matInput autocomplete="off">
+                    </mat-form-field>
+                </mat-grid-tile>
+                <mat-grid-tile>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Comments</mat-label>
+                        <textarea formControlName="Comments" matInput autocomplete="off"></textarea>
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <button [disabled]="form.invalid" type="submit" class="btnAccept" mat-stroked-button color="primary">Accept</button>
+                    <button type="button" (click)="modal.dismiss()" mat-stroked-button color="warn">Cancel</button>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+		</form>
+	</div>
+	<!-- <div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div> -->
+</ng-template>
+
+
+<ng-template #deleteClientModalContent let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Delete Client</h4>
+       
+	</div>
+	<div class="modal-body">
+        <h2>Are you sure to delete this client?</h2>
+        <div class="flex">
+            <button type="button" (click)="deleteClient()" class="btnAccept" mat-stroked-button color="primary">Ok</button>
+            <button type="button" (click)="modal.dismiss()" mat-stroked-button color="warn">Cancel</button>
+        </div>
+
+	</div>
+	<!-- <div class="modal-footer">
+		<button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+	</div> -->
+</ng-template>

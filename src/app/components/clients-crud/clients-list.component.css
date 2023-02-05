@@ -1,0 +1,45 @@
+table {
+    width: 100%;
+}
+
+.title{
+    padding: 30px;
+    background-color: rgb(74, 188, 230);
+    text-align: center;
+    color: white;
+}
+
+.container-custom{
+    margin: 0 20%;
+}
+
+td, th{
+    width: 15%;
+}
+
+mat-form-field{
+    font-size: 15px;
+    width: 100%;
+}
+.delete{
+    cursor: pointer;
+    color: #e15639;
+}
+.edit{
+    cursor: pointer;
+    color: #2196e4;
+}
+
+.addbtn{
+    text-align: center;
+    font-size: large;
+    line-height: 10px;
+}
+.mat-form-field{
+    width: 100%;
+
+}
+
+.btnAccept{
+    margin-right: 5px;
+}
